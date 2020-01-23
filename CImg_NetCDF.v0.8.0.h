@@ -14,8 +14,6 @@
 #define CODE_ERROR -3
 #define DIM_ERROR  -4
 
-#define CIMG_NETCDF_VERSION "v0.8.0"
-
 //! add NetCDF read/write support to CImg class
 /**
  * an object of this class may be created or CImg may derived from this class to handle NetCDF

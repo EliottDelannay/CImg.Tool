@@ -8,18 +8,8 @@
 
 using namespace std;
 
-#define VERSION "v0.8.1"
-
 int main(int argc,char **argv)
 {
-///standard command line parameters (e.g. --info, -h, ...)
-  cimg_usage(std::string("write CImg containers in NetCDF file.\n" \
-  " It uses different GNU libraries (see --info option)\n\n" \
-  " usage: ./writeCImgNetCDF_test -h -I\n" \
-  "        ./writeCImgNetCDF_test && ncdump -h CImgNetCDF_CImgTest.nc\n" \
-  "\n version: "+std::string(VERSION)+"\n compilation date:" \
-  ).c_str());//cimg_usage
-
 // We are writing 5D data
   const int nx=cimg_option("-x",16,"dimx");
   const int ny=cimg_option("-y", 8,"dimy");
@@ -27,18 +17,11 @@ int main(int argc,char **argv)
   const int nv=cimg_option("-v", 2,"dimv");
   const int nt=cimg_option("-t", 3,"dimt");
 
-  #if cimg_display!=0
-  const bool show_X=cimg_option("-X",true,NULL);//-X hidden option
-  bool show=cimg_option("--show",show_X,"show GUI (or -X option)");show=show_X|show;//same --show or -X option
-  #endif
-  const bool show_h   =cimg_option("-h",    false,NULL);//-h hidden option
-        bool show_help=cimg_option("--help",show_h,"help (or -h option)");show_help=show_h|show_help; //same --help or -h option
-  bool show_info=cimg_option("-I",false,NULL);//-I hidden option
-  if( cimg_option("--info",show_info,"show compilation options (or -I option)") ) {show_info=true;cimg_library::cimg::info();}//same --info or -I option
-  bool show_version=cimg_option("-v",false,NULL);//-v hidden option
-  if( cimg_option("--version",show_version,"show version (or -v option)") ) {show_version=true;std::cout<<VERSION<<std::endl<<"CImg_NetCDF."<<CIMG_NETCDF_VERSION<<std::endl;return 0;}//same --version or -v option
-  if(show_help) {/*print_help(std::cerr);*/return 0;}
-  //}CLI option
+///standard command line parameters (e.g. --info, -h, ...)
+  //show compilation options
+  if( cimg_option("--info",(const char*)NULL,"show compilation options") != NULL ) cimg::info();
+  //return on help
+  if( cimg_option("-h",(const char*)NULL,"showing help only") != NULL ) return 0;
 
 //dimension names
   vector<string> dim_names;
