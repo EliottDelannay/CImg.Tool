@@ -42,11 +42,13 @@ int main(int argc,char **argv)
 
 //dimension names
   vector<string> dim_names;
-  string dim_time="dimt";
-  dim_names.push_back("dimx");
+  string dim_time="dimF";
+  dim_names.push_back("dimS");
+/*
   dim_names.push_back("dimy");
   dim_names.push_back("dimz");
   dim_names.push_back("dimv");
+*/
 
 //variable names (and its unit)
 ///single
