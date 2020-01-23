@@ -1,28 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#define cimg_debug         2
 
+#define cimg_display  0
 #include "CImg_NetCDF.h"
+#define cimg_debug    2
 
-//useCimg
-#include "CImg.h"
-using namespace cimg_library;
-
-
-
-
-/*
-#ifndef cimg_debug
-  #define cimg_display_type  0
-  #define cimg_debug         20
-  #include "../CImg/CImg.ini.h"
-  using namespace cimg_library;
-  #if ( defined(_MSC_VER) && _MSC_VER<=1200 ) || defined(__DMC__)
-    #define std
-  #endif
-#endif
-*/
 using namespace std;
 
 int main()

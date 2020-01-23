@@ -8,7 +8,6 @@
 
 #include "../NetCDF.Tool/NetCDFinfo.h"
 
-//complies with CImg version 1.3.4
 #include "../CImg.Tool/useCImg.h"
 
 #define NC_ERROR   -2

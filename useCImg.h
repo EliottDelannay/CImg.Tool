@@ -2,8 +2,8 @@
 #define USECIMG
 
 //using CImg library
-///graphical user interface: set to 0 to force to none
-//#define cimg_display_type  0
+///graphical user interface: set to 0 to force to none, one may set it on compiler command line option (e.g. g++ ... -Dcimg_display_type=0 ...)
+#define cimg_display_type  0
 ///debug message: set to 0 to force to none, 1, 2 ... 5 for more debugging messages
 //#define cimg_debug         1
 
@@ -14,7 +14,7 @@
 //#include "include/tiffio.h"
 
 ////PlugIns
-#define cimg_plugin           "../CImg.PlugIn/PlugIn.CImg.h"
+//#define cimg_plugin           "../CImg.PlugIn/PlugIn.CImg.h"
 //#define cimgnamespace_plugin  "../CImg.PlugIn/PlugIn.CImgLibrary.h"
 ///CImg library
 #include "../CImg/CImg.h"
@@ -26,4 +26,3 @@ using namespace cimg_library;
 #endif
 
 #endif/*USECIMG*/
-

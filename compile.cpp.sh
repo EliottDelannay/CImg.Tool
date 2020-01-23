@@ -1,7 +1,7 @@
 #!/bin/bash
 f=$1
 fb=`basename $f .cpp`
-g++ -O0 $f -I../NetCDF/include -lnetcdf_c++ -lnetcdf -o $fb
+g++ -O0 $f -I../CImg -I../CImg -Wall -W -ansi -pedantic -Dcimg_use_vt100 -lpthread -lm -fopenmp -I../NetCDF/include -L../NetCDF/lib -lnetcdf_c++ -lnetcdf -o $fb
 
 exit
 
