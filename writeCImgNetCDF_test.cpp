@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define VERSION "v0.8.2"
+#define VERSION "v0.8.3"
 
 int main(int argc,char **argv)
 {
@@ -35,7 +35,7 @@ int main(int argc,char **argv)
         bool show_help=cimg_option("--help",show_h,"help (or -h option)");show_help=show_h|show_help; //same --help or -h option
   bool show_info=cimg_option("-I",false,NULL);//-I hidden option
   if( cimg_option("--info",show_info,"show compilation options (or -I option)") ) {show_info=true;cimg_library::cimg::info();}//same --info or -I option
-  bool show_version=cimg_option("-v",false,NULL);//-v hidden option
+  bool show_version=cimg_option("-V",false,NULL);//-V hidden option
   if( cimg_option("--version",show_version,"show version (or -v option)") ) {show_version=true;std::cout<<VERSION<<std::endl<<"CImg_NetCDF."<<CIMG_NETCDF_VERSION<<std::endl;return 0;}//same --version or -v option
   if(show_help) {/*print_help(std::cerr);*/return 0;}
   //}CLI option
@@ -93,7 +93,7 @@ int main(int argc,char **argv)
 /**/
 
 /*CImgList test/
-  string/**/ fo="CImgNetCDF_CImgListTest.nc";
+  string/** / fo="CImgNetCDF_CImgListTest.nc";
   CImgListNetCDF<float> cimgListTest;
   CImgList<float> imgList(var_names.size(),nx,ny,nz,nv);
 ////file

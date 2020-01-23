@@ -18,7 +18,7 @@ read: readCImgNetCDF_test.cpp CImg_NetCDF.h  useCImg.h
 	$(CPP) readCImgNetCDF_test.cpp $(LIB_CIMG) $(LIB_NETCDF) -o readCImgNetCDF_test && ./readCImgNetCDF_test --help --version
 
 write_run:
-	./writeCImgNetCDF_test && ncdump -h CImgNetCDF_CImgTest.nc && ncdump -h  CImgNetCDF_CImgListTest.nc
+	./writeCImgNetCDF_test -x 4096 -y 1 -z 1 -v 1 -t 12 && ncdump -h CImgNetCDF_CImgTest.nc
 
 read_run:
 	ncdump -h CImgNetCDF_cimgListTest.4d-1.nc && ./readCImgNetCDF_test
