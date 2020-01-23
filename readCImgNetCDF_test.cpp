@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define VERSION "v0.8.1"
+#define VERSION "v0.8.2"
 
 int main(int argc,char **argv)
 {
@@ -102,6 +102,8 @@ int main(int argc,char **argv)
 
 
   cout << "CImgListNetCDF::loadNetCDFVar(" << fo << ",...) return "  << cimgListTest.loadNetCDFVar(imgList,var_names,unit_names)  << endl;
+  imgList.print("CImg List");
+
 /*
   for(int t=0;t<1;t++)//cimgListTest.loadDimTime()
   {

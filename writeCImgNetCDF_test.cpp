@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define VERSION "v0.8.1"
+#define VERSION "v0.8.2"
 
 int main(int argc,char **argv)
 {
@@ -108,6 +108,7 @@ int main(int argc,char **argv)
     cimglist_for(imgList,l) cimg_forXYZC(imgList(l),x,y,z,v) imgList(l)(x,y,z,v)=t*x*y*z*v*l+x+y+z+v+t+l;
     cout << "CImgListNetCDF::addNetCDFData" << fo << ",...) return " 	<< cimgListTest.addNetCDFData(imgList) << endl;
   }
+  imgList.print("CImg List");
 /**/
 
 /*4 dimensions: CImgList<T> and CImg<t>/
