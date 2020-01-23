@@ -48,23 +48,21 @@ int main(int argc,char **argv)
   dim_names.push_back("dimz");
   dim_names.push_back("dimv");
 
-//variable names
+//variable names (and its unit)
 ///single
-  string var_name="flag";
+  string var_name="signal";
+  string unit_name="none";
 ///list
+/*
   vector<string> var_names;
   var_names.push_back("u");
   var_names.push_back("v");
   var_names.push_back("w");
-  
-//unit names
-///single
-  string unit_name="none";
-///list
   vector<string> unit_names;
   unit_names.push_back("pixel");
   unit_names.push_back("pixel");
   unit_names.push_back("pixel");
+*/
 
 /*inheritance test/
   string fo="CImgNetCDF_test.nc";
@@ -79,8 +77,9 @@ int main(int argc,char **argv)
 
 /*CImg test*/
   string/**/ fo="CImgNetCDF_CImgTest.nc";
-  CImgNetCDF<float> cimgTest;
-  CImg<float> img(nx,ny,nz,nv);
+  typedef int Tdata;
+  CImgNetCDF<Tdata> cimgTest;
+  CImg<Tdata> img(nx,ny,nz,nv);
   cout << "CImgNetCDF::saveNetCDFFile(" << fo << ",...) return " << cimgTest.saveNetCDFFile((char*)fo.c_str()) << endl;
   cout << "CImgNetCDF::addNetCDFDims(" << fo << ",...) return " << cimgTest.addNetCDFDims(img,dim_names,dim_time) << endl;
   cout << "CImgNetCDF::addNetCDFVar(" << fo << ",...) return " << cimgTest.addNetCDFVar(img,var_name,unit_name) << endl;
