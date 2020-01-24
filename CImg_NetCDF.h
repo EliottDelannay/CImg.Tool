@@ -98,9 +98,9 @@ template<typename T> class CImgNetCDF
 
 #define DIM(X) int dim##X(void){return 0;}
   DIM(x)
-    DIM(y)
-    DIM(z)
-    DIM(v)
+  DIM(y)
+  DIM(z)
+  DIM(v)
 
     int dim(int d){
     return 0;
@@ -126,9 +126,9 @@ template<typename T> class CImgNetCDF
     return (int)vpNCDim[N]->size();		\
   }
   LOAD_DIM(x,0)
-    LOAD_DIM(y,1)
-    LOAD_DIM(z,2)
-    LOAD_DIM(v,3)
+  LOAD_DIM(y,1)
+  LOAD_DIM(z,2)
+  LOAD_DIM(v,3)
 
     //                 std::cerr << "CImgNetCDF::" << __func__ << "()" << std::endl;
 

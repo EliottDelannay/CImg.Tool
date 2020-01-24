@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define VERSION "v0.8.3"
+#define VERSION "v0.8.4"
 
 int main(int argc,char **argv)
 {
@@ -79,7 +79,7 @@ int main(int argc,char **argv)
 
 /*CImg test*/
   string/**/ fo="CImgNetCDF_CImgTest.nc";
-  typedef int Tdata;
+  typedef int Tdata;//char, int, float, double, unsigned char (byte) ok
   CImgNetCDF<Tdata> cimgTest;
   CImg<Tdata> img(nx,ny,nz,nv);
   cout << "CImgNetCDF::saveNetCDFFile(" << fo << ",...) return " << cimgTest.saveNetCDFFile((char*)fo.c_str()) << endl;
@@ -88,7 +88,7 @@ int main(int argc,char **argv)
   for(int t=0;t<nt;++t)
   {
     cimg_forXYZC(img,x,y,z,v) img(x,y,z,v)=t*x*y*z*v+x+y+z+v+t;
-    cout << "CImgNetCDF::addNetCDFData" << fo << ",...) return " << cimgTest.addNetCDFData(img) << endl;
+    cout << "CImgNetCDF::addNetCDFData(" << fo << ",...) return " << cimgTest.addNetCDFData(img) << endl;
   }
   cout << endl;
 /**/
