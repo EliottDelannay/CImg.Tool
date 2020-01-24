@@ -14,7 +14,7 @@
 #define CODE_ERROR -3
 #define DIM_ERROR  -4
 
-#define CIMG_NETCDF_VERSION "v0.8.0"
+#define CIMG_NETCDF_VERSION "v0.8.1"
 
 //! add NetCDF read/write support to CImg class
 /**
@@ -132,10 +132,11 @@ template<typename T> class CImgNetCDF
 
     //                 std::cerr << "CImgNetCDF::" << __func__ << "()" << std::endl;
 
-    int loadDim(int d) {
+  int loadDim(int d)
+  {
     if(d>=(int)vpNCDim.size()) return CODE_ERROR;
     return (int)vpNCDim[d]->size();
-  }
+  }//loadDim
   //! 
   /**
    * 
@@ -179,7 +180,7 @@ template<typename T> class CImgNetCDF
 #endif
     if(pNCDimt==NULL) {std::cerr << "CImgNetCDF::" << __func__ << "() error: pNCDimt==NULL." << std::endl;return CODE_ERROR;}
     return (int)pNCDimt->size();
-  }
+  }//loadDimTime
   //methods
   //! 
   /**
@@ -202,7 +203,7 @@ template<typename T> class CImgNetCDF
       /*vpNCDimv=NULL;*/vpNCDim_init_here=false;
       pNCDimt=NULL;
       pNCvar=NULL;
-    }
+    }//constructor
   virtual ~CImgNetCDF(void)
     {
 #if cimg_debug>10
@@ -218,7 +219,7 @@ template<typename T> class CImgNetCDF
       }
       else pNCFile=NULL;
       delete(pNCError);
-    }
+    }//destructor
   //! 
   /**
    * 
@@ -242,7 +243,7 @@ template<typename T> class CImgNetCDF
     return !(pNCFile->is_valid());
     //    else
     //      return loadNetCDFDims(*pDim_names,pTime_name);
-  }
+  }//loadNetCDFFile
   //! 
   /**
    * 
@@ -265,7 +266,7 @@ template<typename T> class CImgNetCDF
     pNCFile_init_here=true;
     if( (pDim_names!=NULL) && (pTime_name!=NULL)) return addNetCDFDims(*pDim_names,*pTime_name);
     else return 0;
-  }
+  }//saveNetCDFFile
   int saveNetCDFFile(char *fileName,NcFile::FileMode fmod, std::vector<std::string> *pDim_names=NULL,std::string *pTime_name=NULL)
   {
 #if cimg_debug>10
@@ -277,7 +278,7 @@ template<typename T> class CImgNetCDF
     pNCFile_init_here=true;
     if( (pDim_names!=NULL) && (pTime_name!=NULL)) return addNetCDFDims(*pDim_names,*pTime_name);
     else return 0;
-  }
+  }//saveNetCDFFile
   //! 
   /**
    * 
@@ -297,7 +298,7 @@ template<typename T> class CImgNetCDF
     pNCFile=pNetCDFFile;
     pNCFile_init_here=false;
     return 0;
-  }
+  }//setNetCDFFile
   
   //! 
   /**
@@ -315,7 +316,7 @@ template<typename T> class CImgNetCDF
     std::cerr << "CImgNetCDF::" << __func__ << "(" << pNetCDFFile << ")" << std::endl;
 #endif
     return pNCFile;
-  }
+  }//getNetCDFFile
   
   //! add variables in NetCDF file
   /**
@@ -373,7 +374,7 @@ template<typename T> class CImgNetCDF
     //Define units attributes for data variables.
     if (!(pNCvar->add_att("units",unit_name.c_str()))) return NC_ERROR;
     return 0;
-  }
+  }//addNetCDFVar
   //! add variables in NetCDF file
   /**
    * save variables in NetCDF file, may be called after creation of dimensions \c CImgNetCDF::addNetCDFDims
@@ -414,7 +415,7 @@ template<typename T> class CImgNetCDF
 	}
       }
     return addNetCDFVar(var_name,unit_name);
-  }
+  }//addNetCDFVar
 
 
   //! add variable data in NetCDF file
@@ -453,7 +454,7 @@ template<typename T> class CImgNetCDF
 	if (!pNCvar->put_rec(ptr,time)) return NC_ERROR;
       }
     return 0;
-  }
+  }//addNetCDFData
   //for CImg as function parameter
   int addNetCDFData(CImg<T> &img,int time=-1){
 #if cimg_debug>10
@@ -499,7 +500,7 @@ template<typename T> class CImgNetCDF
 	if (!pNCvar->put_rec(ptr,time)) return NC_ERROR;
       }
     return 0;
-  }
+  }//addNetCDFData
 
 
 
@@ -530,7 +531,7 @@ template<typename T> class CImgNetCDF
       }
     }
     return 0;
-  }
+  }//loadNetCDFVar
 
   //! load dimensions from NetCDF file
   /**
@@ -560,7 +561,7 @@ template<typename T> class CImgNetCDF
       if (!(pNCDimt=pNCFile->get_dim((*pTime_name).c_str())))        return NC_ERROR;//Read
     //dims can be now loaded using loadDim[x,y,z,v,Time]() methods
     return 0;
-  }
+  }//loadNetCDFDims
 
 
 
@@ -613,7 +614,7 @@ template<typename T> class CImgNetCDF
     std::cerr << ((pTime_name==NULL)?"no unlimited dimension as been searched":"time_name=\""+*pTime_name+"\" (unlimited)") <<std::endl<<std::flush;
     //#endif
     return 0;
-  }
+  }//loadNetCDFDimNames
   //(std::string)this <<
 
 
@@ -642,7 +643,7 @@ template<typename T> class CImgNetCDF
     case 3: return img.spectrum()!=(int)vpNCDim[d]->size();break;
       //default:NULL;
     }
-  }
+  }//checkDim
 
 #define CHECK_DIM(X,N) int checkDim##X(CImg<T> img)			\
   {									\
@@ -651,9 +652,9 @@ template<typename T> class CImgNetCDF
     return img.dim##X()!=(int)vpNCDim[N]->size();			\
   }
   CHECK_DIM(x,0)
-    CHECK_DIM(y,1)
-    CHECK_DIM(z,2)
-    CHECK_DIM(v,3)
+  CHECK_DIM(y,1)
+  CHECK_DIM(z,2)
+  CHECK_DIM(v,3)
 
 
     //! load variable data from NetCDF file
@@ -702,7 +703,7 @@ template<typename T> class CImgNetCDF
       if (!pNCvar->get(img.data(), dim)) return NC_ERROR;//*/
 	
       return 0;
-    }
+    }//loadNetCDFData
   int loadNetCDFData3D(CImg<T> &img,int time=0){
 #if cimg_debug>10
     std::cerr << "CImgNetCDF::" << __func__ << "(CImg,time=" << time << ")" << std::endl;
@@ -733,7 +734,7 @@ template<typename T> class CImgNetCDF
     if (!pNCvar->get(img.ptr(0,0,0,0), dim)) return NC_ERROR;//*/
 	
     return 0;
-  }
+  }//loadNetCDFData3D
   int loadNetCDFData2D(CImg<T> &img,int time=0)
   {
 #if cimg_debug>10
@@ -759,7 +760,7 @@ template<typename T> class CImgNetCDF
     //if (!pNCvar->get(img.ptr(0,0,0,0), dim)) return NC_ERROR;//*/
     if (!pNCvar->get_rec( )) return NC_ERROR;
     return 0;
-  }
+  }//loadNetCDFData2D
 
 
   //! same as previously but without time
@@ -792,7 +793,7 @@ template<typename T> class CImgNetCDF
     for(std::vector<std::string>::iterator it=dim_names.begin();it!=dim_names.end();it++) std::cerr<<"\""<<*it<<"\", ";
     //#endif
     return 0;
-  }
+  }//loadNetCDFDimNamesNoUnlimited
   
   
   //for CImg inheritance ###
@@ -816,13 +817,13 @@ template<typename T> class CImgNetCDF
       if(!(pNCDimt=pNCFile->add_dim(time_name.c_str()/*unlimited*/))) return NC_ERROR;//Write: add an unlimited dimension
     vpNCDim_init_here=true;
     return 0;
-  }
+  }//addNetCDFDims
   //! \overload without unlimited direction
   int addNetCDFDims(std::vector<std::string> dim_names)
   {
     std::string time_name;
     return addNetCDFDims(dim_names,time_name);
-  }
+  }//addNetCDFDims
   //! add one dimension checking for its availability
   /**
    * use existing dimension or create one
@@ -850,7 +851,7 @@ template<typename T> class CImgNetCDF
 	if(!(pDim=pNCFile->add_dim(dim_name.c_str(),size))) return NC_ERROR;
       }
     return 0;
-  }
+  }//addNetCDFDim
   //for CImg as function parameter
   int addNetCDFDims(CImg<T> &img,std::vector<std::string> dim_names,std::string time_name)
   {
@@ -888,14 +889,14 @@ template<typename T> class CImgNetCDF
       }
     vpNCDim_init_here=true;
     return 0;
-  }
+  }//addNetCDFDims
   //! \overload without unlimited direction
   int addNetCDFDims(CImg<T> &img,std::vector<std::string> dim_names)
   {
     std::string time_name;
     return addNetCDFDims(img,dim_names,time_name);
-  }
-  //for CImg inheritance ###
+  }//addNetCDFDims
+  //! for CImg inheritance
   int setNetCDFDims(std::string &dim_names,NcDim *pNetCDFDimt=NULL)
   {
 #if cimg_debug>10
@@ -909,7 +910,7 @@ template<typename T> class CImgNetCDF
     else{vpNCDim.push_back(pd);}
     pNCDimt=pNetCDFDimt;
     return 0;
-  }
+  }//setNetCDFDims
   //! 
   /**
    * 
@@ -927,7 +928,7 @@ template<typename T> class CImgNetCDF
       //default:NULL;
     }
     return 0;
-  }
+  }//loadNetCDFDataNoUnlimited
   
   //! 
   /**
@@ -955,13 +956,13 @@ template<typename T> class CImgNetCDF
       pNCDimt=pNetCDFDimt;
       vpNCDim_init_here=false;
       return 0;
-    }
-  };
+    }//setNetCDFDims
+  };//CImgNetCDF
 
 
 
 
-  //! 
+  //! test inheritance for CImgNetCDF class
   /**
    * 
    *
@@ -983,8 +984,7 @@ template<typename T> class CImgNetCDF
 #define DIM(X,N) int dim##X(void){		\
       return (CImgNetCDF<T>::vpNCDim[N]);	\
     }
-
-  DIM(x,0)
+    DIM(x,0)
     DIM(y,1)
     DIM(z,2)
     DIM(v,3)
@@ -1016,7 +1016,7 @@ template<typename T> class CImgNetCDF
    */
   int addNetCDFData(void){
 #if cimg_debug>10
-    std::cerr << "CImgNetCDF::" << __func__ << "()" << std::endl;
+    std::cerr << "CImgNetCDF_test::" << __func__ << "()" << std::endl;
 #endif
     if((*this).pNCvar==NULL) return CODE_ERROR;
     int time=CImgNetCDF<T>::loadDimTime();//vpNCDim[2] << "," << vpNCDim[3]
@@ -1035,7 +1035,7 @@ template<typename T> class CImgNetCDF
 
 
 
-  //call C2DNetCDF::loadFile
+  //! call CImgNetCDF::loadFile
   int loadFile(char *fileName,char *dimi_name=NULL,char *dimj_name=NULL,char *time_name=NULL)
   {
 #if cimg_debug>10
@@ -1044,9 +1044,11 @@ template<typename T> class CImgNetCDF
     CImgNetCDF<T>::loadFile(fileName,dimi_name,dimj_name,time_name);
     //then may use loadDimi(),loadDimj(),loadDimTime() to allocate
     return 0;
-  }
-  //add function
-  void print(void){
+  }//loadFile
+
+  //! print class dimensions
+  void print(void)
+  {
 #if cimg_debug>10
     std::cerr << "CImgNetCDF_test::" << __func__ << "()" << std::endl;
 #endif
@@ -1055,9 +1057,8 @@ template<typename T> class CImgNetCDF
     if(CImgNetCDF<T>::vpNCDim.size()>=3)std::cout<<"dimz="<<dimz()<<",";
     if(CImgNetCDF<T>::vpNCDim.size()==4)std::cout<<"dimv="<<dimv()<<",";
     std::cout<<"dimt="<<CImgNetCDF<T>::loadDimTime();
-	
-  }
-  };
+  }//print
+};//CImgNetCDF_test
 
 
 
@@ -1120,13 +1121,13 @@ template<typename T> class CImgNetCDF
       //check sizes
       if(imgs.size()<1) {return DIM_ERROR;}
       return CImgNetCDF<T>::addNetCDFDims(imgs(0),dim_names,time_name);
-    }
+    }//addNetCDFDims
   //! \overload without unlimited direction
   int addNetCDFDims(CImgList<T> &img,std::vector<std::string> dim_names)
   {
     std::string time_name;
     return addNetCDFDims(img,dim_names,time_name);
-  }
+  }//addNetCDFDims
     //! add variables in NetCDF file
     /**
      * save variables in NetCDF file, may be called after creation of dimensions \c CImgNetCDF::addNetCDFDims
@@ -1176,7 +1177,7 @@ template<typename T> class CImgNetCDF
 	  pNCvars[i]=(*this).pNCvar;(*this).pNCvar=NULL;
 	}
       return 0;
-    }
+    }//addNetCDFVar
 
 
 
@@ -1212,7 +1213,7 @@ template<typename T> class CImgNetCDF
 	  (*this).pNCvar=NULL;
 	}
       return 0;
-    }
+    }//addNetCDFData
 
 
 
@@ -1255,7 +1256,7 @@ template<typename T> class CImgNetCDF
 	  (*this).pNCvar=NULL;
 	}
       return 0;
-    }
+    }//loadNetCDFVar
 
 
 
@@ -1291,7 +1292,7 @@ template<typename T> class CImgNetCDF
 	  (*this).pNCvar=NULL;
 	}
       return 0;
-    }
+    }//loadNetCDFData
     int loadNetCDFData3D(CImgList<T> &imgs,int time=0)
     {
 #if cimg_debug>10
@@ -1310,7 +1311,7 @@ template<typename T> class CImgNetCDF
 	  (*this).pNCvar=NULL;
 	}
       return 0;
-    }
+    }//loadNetCDFData3D
     int loadNetCDFData2D(CImgList<T> &imgs,int time=0)
     {
 #if cimg_debug>10
@@ -1329,8 +1330,8 @@ template<typename T> class CImgNetCDF
 	  (*this).pNCvar=NULL;
 	}
       return 0;
-    }
-  };
+    }//loadNetCDFData2D
+  };//CImgListNetCDF
 
 #endif/*CIMG_NETCDF*/
 
