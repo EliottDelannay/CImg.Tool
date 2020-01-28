@@ -10,6 +10,7 @@ version: writeCImgNetCDF_test.cpp readCImgNetCDF_test.cpp CImg_NetCDF.h ../CImg/
 	./readCImgNetCDF_test --version >> VERSIONS
 	grep cimg_version ../CImg/CImg.h --color | head -n 2 | tail -n 1 | sed 's/#define //' >> VERSIONS
 	cat VERSIONS | sort -u -r > VERSIONS.uniq && mv VERSIONS.uniq VERSIONS
+	cat VERSIONS
 
 write: writeCImgNetCDF_test.cpp CImg_NetCDF.h  useCImg.h
 	$(CPP) writeCImgNetCDF_test.cpp $(LIB_CIMG) $(LIB_NETCDF) -o writeCImgNetCDF_test && ./writeCImgNetCDF_test --help --version

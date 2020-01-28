@@ -14,7 +14,7 @@
 #define CODE_ERROR -3
 #define DIM_ERROR  -4
 
-#define CIMG_NETCDF_VERSION "v0.8.1"
+#define CIMG_NETCDF_VERSION "v0.8.2"
 
 //! add NetCDF read/write support to CImg class
 /**
@@ -801,7 +801,7 @@ template<typename T> class CImgNetCDF
   {
 #if cimg_debug>10
     std::cerr << "CImgNetCDF::" << __func__ << "(";
-    //  std::cerr << ((dim_names==NULL)?"default":dimi_name) << "," << ((dimj_name==NULL)?"default":dimj_name) << ",";
+    //std::cerr << ((dim_names==NULL)?"default":dimi_name) << "," << ((dimj_name==NULL)?"default":dimj_name) << ",";
     std::cerr << time_name << ")" << std::endl;
 #endif
     vpNCDim.clear();
@@ -835,7 +835,11 @@ template<typename T> class CImgNetCDF
    **/
   int addNetCDFDim(std::string &dim_name,int size,NcDim* &pDim)
   {
-    //std::cerr<<__FILE__<<"/"<<__func__<<std::endl<<std::flush;
+/*
+    std::cerr<<__FILE__<<"/"<<__func__<<"("<<std::flush;
+    std::cerr<<"dim="<<dim_name<<", size="<<size<<std::flush;
+    std::cerr<<", pDim="<<dim_name<<")"<<std::endl<<std::flush;
+*/
     //check availability
     if(pDim==pNCFile->get_dim(dim_name.c_str()))
       {//check size of the existing dimension
@@ -847,7 +851,7 @@ template<typename T> class CImgNetCDF
       }
     else
       {//create new dimension
-	std::cerr<<"Information: create new \""<<dim_name<<"\" dimension."<<std::endl;
+	std::cerr<<"Information: create new \""<<dim_name<<"\" dimension."<<std::endl<<std::flush;
 	if(!(pDim=pNCFile->add_dim(dim_name.c_str(),size))) return NC_ERROR;
       }
     return 0;
@@ -856,9 +860,11 @@ template<typename T> class CImgNetCDF
   int addNetCDFDims(CImg<T> &img,std::vector<std::string> dim_names,std::string time_name)
   {
 #if cimg_debug>10
-    std::cerr << "CImgNetCDF::" << __func__ << "(CImg<" << img.pixel_type() << ">,";
-    //  std::cerr << ((dim_names==NULL)?"default":dimi_name) << "," << ((dimj_name==NULL)?"default":dimj_name) << ",";
-    std::cerr << time_name << ")" << std::endl;
+    std::cerr << "CImgNetCDF::" << __func__ << "(CImg<" << img.pixel_type() << ">,"<<std::flush;
+    std::cerr << "dims=";
+    for(int i=0;i<dim_names.size();++i) std::cerr <<dim_names[i]<< ",";
+    //std::cerr << ((dim_names==NULL)?"default":dimi_name) << "," << ((dimj_name==NULL)?"default":dimj_name) << ",";
+    std::cerr<<"  "<< time_name << ")" << std::endl<<std::flush;
 #endif
     int error;
     NcDim* pd;
