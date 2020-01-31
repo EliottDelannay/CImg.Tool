@@ -14,7 +14,7 @@
 #define CODE_ERROR -3
 #define DIM_ERROR  -4
 
-#define CIMG_NETCDF_VERSION "v0.8.2"
+#define CIMG_NETCDF_VERSION "v0.8.3"
 
 //! add NetCDF read/write support to CImg class
 /**
@@ -859,13 +859,13 @@ template<typename T> class CImgNetCDF
   //for CImg as function parameter
   int addNetCDFDims(CImg<T> &img,std::vector<std::string> dim_names,std::string time_name)
   {
-#if cimg_debug>10
+//#if cimg_debug>10
     std::cerr << "CImgNetCDF::" << __func__ << "(CImg<" << img.pixel_type() << ">,"<<std::flush;
     std::cerr << "dims=";
     for(int i=0;i<dim_names.size();++i) std::cerr <<dim_names[i]<< ",";
     //std::cerr << ((dim_names==NULL)?"default":dimi_name) << "," << ((dimj_name==NULL)?"default":dimj_name) << ",";
     std::cerr<<"  "<< time_name << ")" << std::endl<<std::flush;
-#endif
+//#endif
     int error;
     NcDim* pd;
     for(int i=0;i<(int)dim_names.size();i++)
