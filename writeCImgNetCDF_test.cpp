@@ -43,7 +43,7 @@ int main(int argc,char **argv)
 //dimension names
   vector<string> dim_names;
   string dim_time="dimF";
-  dim_names.push_back("dimS");
+  dim_names.push_back("dim1");
 /*
   dim_names.push_back("dimy");
   dim_names.push_back("dimz");
@@ -55,16 +55,16 @@ int main(int argc,char **argv)
   string var_name="signal";
   string unit_name="none";
 ///list
-/*
+/**/
   vector<string> var_names;
-  var_names.push_back("u");
-  var_names.push_back("v");
-  var_names.push_back("w");
+  var_names.push_back("A");
+  var_names.push_back("tau");
+  var_names.push_back("tb");
   vector<string> unit_names;
-  unit_names.push_back("pixel");
-  unit_names.push_back("pixel");
-  unit_names.push_back("pixel");
-*/
+  unit_names.push_back("digit");
+  unit_names.push_back("tic (10ns)");
+  unit_names.push_back("tic (10ns)");
+/**/
 
 /*inheritance test/
   string fo="CImgNetCDF_test.nc";
@@ -77,8 +77,8 @@ int main(int argc,char **argv)
   cout << endl;
 /**/
 
-/*CImg test*/
-  string/**/ fo="CImgNetCDF_CImgTest.nc";
+/*CImg test* /
+  string/** / fo="CImgNetCDF_CImgTest.nc";
   typedef int Tdata;//char, int, float, double, unsigned char (byte) ok
   CImgNetCDF<Tdata> cimgTest;
   CImg<Tdata> img(nx,ny,nz,nv);
@@ -93,8 +93,8 @@ int main(int argc,char **argv)
   cout << endl;
 /**/
 
-/*CImgList test/
-  string/** / fo="CImgNetCDF_CImgListTest.nc";
+/*CImgList test*/
+  string/**/ fo="CImgNetCDF_CImgListTest.nc";
   CImgListNetCDF<float> cimgListTest;
   CImgList<float> imgList(var_names.size(),nx,ny,nz,nv);
 ////file
